@@ -20,6 +20,7 @@ def weight(img, i1, j1, i2, j2):
 def create_W(img):
   """
   img: grayscale img? (how do to handle color image?)
+  Returns W matrix as specified in hw
   """
   m, n, _ = img.shape
   result = np.zeros((m, n))
@@ -32,6 +33,22 @@ def create_W(img):
   
   return result
 
+def create_D(img):
+  """
+  img: grayscale img? (how to handle color image?)
+  Returns D matrix as specified in hw
+  """
+  m, n, _ = img.shape
+  result = np.zeros((m, n))
+
+  W = create_W(img) #create W matrix
+
+  for i1 in range(m):
+    for j1 in range(n):
+      if i1 == j1:
+        result[i1, j1] = np.sum(W[i1])
+  
+  return result
 
 
 def graph_based_segmentation(img):
