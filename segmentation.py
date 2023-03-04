@@ -59,7 +59,7 @@ def create_D(img):
   for i1 in range(m * n):
     for j1 in range(m * n):
       if i1 == j1:
-        result[i1, j1] = np.sum(W[i1])
+        result[i, j] = np.sum(W[i1])
   
   return result
 
