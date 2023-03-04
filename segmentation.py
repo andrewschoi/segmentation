@@ -42,7 +42,7 @@ def create_W(img):
 
   for i in range(m * n):
     for j in range(m * n):
-          result[i1, j1] = weight(img, i, j)
+          result[i, j] = weight(img, i, j)
   
   return result
 
