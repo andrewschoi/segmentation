@@ -101,6 +101,14 @@ def vectorize(img):
 def graph_based_segmentation(img):
   """
   img: a hxwx3 numpy array with floating point values
-  Returns the second-smallest absolute eigenvalue 
+  Returns the second-smallest absolute eigenvector reshaped into dim of original
+  image 
   """
-  pass
+  m, n, _ = img.shape
+  A = create_A(img)
+  eigenvalues = np.linalg.eigvals(A)
+  eigenvalues.sort()
+
+  result = vectorize(img) * eigenvalues[1] #eigenvector associated with second smallest eigenvalue
+
+  return result.reshape((m, n))
