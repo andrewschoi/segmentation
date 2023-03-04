@@ -33,12 +33,12 @@ def create_W(img):
   Returns W matrix as specified in hw
   """
   m, n, _ = img.shape
-  result = np.zeros((m, n))
+  result = np.zeros((m * n, m * n))
 
-  for i1 in range(m):
-    for j1 in range(n):
-      for i2 in range(m):
-        for j2 in range(n):
+  for i1 in range(m * n):
+    for j1 in range(m *n):
+      for i2 in range(m * n):
+        for j2 in range(m * n):
           result[i1, j1] = weight(img, i1, j1, i2, j2)
   
   return result
@@ -49,12 +49,12 @@ def create_D(img):
   Returns D matrix as specified in hw
   """
   m, n, _ = img.shape
-  result = np.zeros((m, n))
+  result = np.zeros((m * n, m * n))
 
   W = create_W(img) #create W matrix
 
-  for i1 in range(m):
-    for j1 in range(n):
+  for i1 in range(m * n):
+    for j1 in range(m * n):
       if i1 == j1:
         result[i1, j1] = np.sum(W[i1])
   
