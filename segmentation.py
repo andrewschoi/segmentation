@@ -51,6 +51,10 @@ def create_D(img):
   return result
 
 def create_A(img):
+  """
+  img: gray-scale img
+  Returns matrix A as specified in hw
+  """
   m, n, _ = img.shape
 
   I = np.identity(m)
