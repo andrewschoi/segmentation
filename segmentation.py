@@ -1,6 +1,9 @@
 import numpy as np
 
-def weight(p, q):
+def weight(img, p, q):
+  """
+  weight function specified in hw
+  """
   i1, j1 = p
   i2, j2 = q
 
@@ -8,7 +11,9 @@ def weight(p, q):
     return 0
   
   if abs(i1 - i2) <= 20 and abs(j1 - j2) <= 20:
-    pass
+    c2 = img[i1][j1]
+    c1 = img[i2][j2] #how do we get color difference of color image?
+    return np.exp(-100 * abs(c1 - c2) ** 2)
   
   return 0
 
@@ -23,4 +28,4 @@ def graph_based_segmentation(img):
   img: a hxwx3 numpy array with floating point values
   Returns the second-smallest absolute eigenvalue 
   """
-  
+  pass
