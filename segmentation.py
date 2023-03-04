@@ -1,12 +1,12 @@
 import numpy as np
 
-def weight(img, p, q):
+def weight(img, i1, j1, i2, j2):
   """
-  weight function specified in hw
+  img: grayscale img? (how do to handle color image?)
+  (i1, j1): first coordinate
+  (i2, j2): second coordinate
+  Returns output of weight function specified in hw
   """
-  i1, j1 = p
-  i2, j2 = q
-
   if i1 == i2 and j1 == j2:
     return 0
   
@@ -18,8 +18,19 @@ def weight(img, p, q):
   return 0
 
 def create_W(img):
+  """
+  img: grayscale img? (how do to handle color image?)
+  """
   m, n, _ = img.shape
   result = np.zeros((m, n))
+
+  for i1 in range(m):
+    for j1 in range(n):
+      for i2 in range(m):
+        for j2 in range(n):
+          result[i1, j1] = weight(img, i1, j1, i2, j2)
+  
+  return result
 
 
 
