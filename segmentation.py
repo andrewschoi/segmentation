@@ -68,7 +68,19 @@ def create_A(img):
     D_inverse = 1 / [D_inverse[i, j]] #inverse of a diagonal matrix is its reciprocal of its diagonals
   
   return I - np.matmul(D_inverse, W) #find A as specified in hw
-  
+
+def grayscale(img):
+  """
+  img: color image
+  Returns grayscale equivalent of img
+  """
+  m, n, _ = img.shape
+  result = np.zeros((m, n))
+  for i in range(m):
+    for j in range(n):
+      r, g, b = img[i][j][0], img[i][j][0], img[i][j][0]
+      result[i, j] = 0.2125 * r + 0.7154 * g + 0.0721 * b
+  return result
 
 
 
