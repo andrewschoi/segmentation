@@ -10,16 +10,21 @@ def dist(v1, v2):
     result += (e1 - e2) ** 2
   return np.sqrt(result)
 
-def weight(img, i1, j1, i2, j2):
+def weight(img, i, j):
   """
   img: color img
-  (i1, j1): first coordinate
-  (i2, j2): second coordinate
+  i, j: coordinates of m * n array
   Returns output of weight function specified in hw
   """
+  m, n, _ = img.shape
+
+  i1, j1 = i // m, i % m
+  i2, j2 = j // m, j % m
+
   if i1 == i2 and j1 == j2:
     return 0
   
+
   if abs(i1 - i2) <= 20 and abs(j1 - j2) <= 20:
     c1 = img[i1][j1]
     c2 = img[i2][j2]
@@ -35,11 +40,9 @@ def create_W(img):
   m, n, _ = img.shape
   result = np.zeros((m * n, m * n))
 
-  for i1 in range(m * n):
-    for j1 in range(m *n):
-      for i2 in range(m * n):
-        for j2 in range(m * n):
-          result[i1, j1] = weight(img, i1, j1, i2, j2)
+  for i in range(m * n):
+    for j in range(m * n):
+          result[i1, j1] = weight(img, i, j)
   
   return result
 
