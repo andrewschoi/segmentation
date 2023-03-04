@@ -50,6 +50,24 @@ def create_D(img):
   
   return result
 
+def create_A(img):
+  m, n, _ = img.shape
+
+  I = np.identity(m)
+  D = create_d(img)
+  W = create_w(img)
+
+  D_inverse = D.copy()
+
+  coords = np.where(W != 0)
+  for i, j in coords:
+    D_inverse = 1 / [D_inverse[i, j]] #inverse of a diagonal matrix is its reciprocal of its diagonals
+  
+  return I - np.matmul(D_inverse, W) #find A as specified in hw
+  
+
+
+
 
 def graph_based_segmentation(img):
   """
