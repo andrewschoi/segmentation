@@ -82,6 +82,19 @@ def grayscale(img):
       result[i, j] = 0.2125 * r + 0.7154 * g + 0.0721 * b
   return result
 
+def vectorize(img):
+  """
+  img: grayscale image
+  Returns 1-d vector as specified in hw
+  """
+  m, n, _ = img.shape
+
+  result = np.zeros(m * n)
+
+  for i in range(m):
+    for j in range(n):
+      result[i * n + j] = img[i, j]
+  return result
 
 
 
