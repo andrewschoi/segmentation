@@ -75,7 +75,7 @@ def create_A(img):
 
   coords = np.where(W != 0)
   for i, j in coords:
-    D_inverse = 1 / [D_inverse[i, j]] #inverse of a diagonal matrix is its reciprocal of its diagonals
+    D_inverse = 1 / D_inverse[i, j] #inverse of a diagonal matrix is its reciprocal of its diagonals
   
   return I - np.matmul(D_inverse, W) #find A as specified in hw
 
