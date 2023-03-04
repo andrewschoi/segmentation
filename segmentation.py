@@ -36,7 +36,7 @@ def create_W(img):
   result = np.zeros((m * n, m * n))
 
   for i1 in range(m * n):
-    for j1 in range(m *n):
+    for j1 in range(m * n):
       for i2 in range(m * n):
         for j2 in range(m * n):
           result[i1, j1] = weight(img, i1, j1, i2, j2)
