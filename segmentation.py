@@ -68,8 +68,8 @@ def create_A(img):
   m, n, _ = img.shape
 
   I = np.identity(m)
-  D = create_d(img)
-  W = create_w(img)
+  D = create_D(img)
+  W = create_W(img)
 
   D_inverse = D.copy()
 
@@ -78,7 +78,7 @@ def create_A(img):
     D_inverse = 1 / [D_inverse[i, j]] #inverse of a diagonal matrix is its reciprocal of its diagonals
   
   return I - np.matmul(D_inverse, W) #find A as specified in hw
-  
+
 
 def vectorize(img):
   """
