@@ -18,8 +18,8 @@ def weight(img, i, j):
   """
   m, n, _ = img.shape
 
-  i1, j1 = i // m, i % m
-  i2, j2 = j // m, j % m
+  i1, j1 = i // n, i % n
+  i2, j2 = j // n, j % n
 
   if i1 == i2 and j1 == j2:
     return 0
@@ -59,7 +59,7 @@ def create_D(img):
   for i1 in range(m * n):
     for j1 in range(m * n):
       if i1 == j1:
-        result[i, j] = np.sum(W[i1])
+        result[i1, j1] = np.sum(W[i1])
   
   return result
 
@@ -70,17 +70,18 @@ def create_A(img):
   """
   m, n, _ = img.shape
 
-  I = np.identity(m)
+  I = np.identity(m * n)
   D = create_D(img)
   W = create_W(img)
 
   D_inverse = D.copy()
 
-  coords = np.where(W != 0)
-  for i, j in coords:
-    D_inverse = 1 / D_inverse[i, j] #inverse of a diagonal matrix is its reciprocal of its diagonals
-  
-  return I - np.matmul(D_inverse, W) #find A as specified in hw
+  xpos, ypos = np.nonzero(W) # use numpy.nonzero to get indices of non-zero elements
+
+  for i, j in zip(xpos, ypos):
+      D_inverse[i, j] = 1 / D[i, j] # divide by corresponding diagonal element in D
+
+  return np.subtract(I, np.matmul(D_inverse, W)) #find A as specified in hw
 
 
 def vectorize(img):
@@ -107,6 +108,7 @@ def graph_based_segmentation(img):
   """
   m, n, _ = img.shape
   A = create_A(img)
+  
   eigenvalues = np.linalg.eigvals(A)
   eigenvalues.sort()
 
