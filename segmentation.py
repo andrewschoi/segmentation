@@ -13,10 +13,8 @@ def weight(img, coord1, coord2):
     return 0
 
   if abs(i1 - i2) <= 20 and abs(j1 - j2) <= 20:
-    c1 = img[i1][j1]
-    c2 = img[i2][j2]
-    dist = np.linalg.norm(c1 - c2) ** 2
-    return np.exp(-100 * dist)
+    c1, c2 = img[i1][j1], img[i2][j2]
+    return np.exp(-100 * np.linalg.norm(c1 - c2) ** 2)
   
   return 0
 
@@ -52,9 +50,9 @@ def graph_based_segmentation(img):
   D = np.diag(np.sum(W, axis=1))
   D_inverse = np.linalg.inv(D)
   I = np.identity(m * n)
-  A = I - (D_inverse @ W)
-  vals, vecs = np.linalg.eig(A)
+  A = I -np.matmul(D_inverse, W)
+  eigenvalues, eigenvectors = np.linalg.eig(A)
 
-  sec_index = np.argsort(vals)[1]
-  sec_evec = vecs[:, sec_index]
-  return np.reshape(sec_evec, (m, n))
+  second_eigenvalue = np.argsort(eigenvalues)[1]
+  second_eigenvector = eigenvectors[:, second_eigenvalue]
+  return np.reshape(second_eigenvector, (m, n))
