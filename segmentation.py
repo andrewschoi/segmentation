@@ -28,13 +28,13 @@ def create_W(img):
   m, n, _ = img.shape
   result = np.zeros((m * n, m * n))
 
-  for i in range(n):
-    for j in range(m):
+  for i in range(m):
+    for j in range(n):
       p = i * n + j
-      for k in range(n):
-          for l in range(m):
+      for k in range(m):
+          for l in range(n):
             q = k * n + l
-            w = weight(img, i, j, k, l)
+            w = weight(img, (i, j), (k, l))
             result[p, q] = w
   
   
@@ -55,6 +55,6 @@ def graph_based_segmentation(img):
   A = I - (D_inverse @ W)
   vals, vecs = np.linalg.eig(A)
 
-  sec_index = np.argsort(vals, 1)
+  sec_index = np.argsort(vals)[1]
   sec_evec = vecs[:, sec_index]
   return np.reshape(sec_evec, (m, n))
